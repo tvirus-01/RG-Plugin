@@ -1,0 +1,115 @@
+.row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(var(--bs-gutter-y) * -1);
+    margin-right: calc(var(--bs-gutter-x)/ -2);
+    margin-left: calc(var(--bs-gutter-x)/ -2);
+}
+.row>* {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x)/ 2);
+    padding-left: calc(var(--bs-gutter-x)/ 2);
+    margin-top: var(--bs-gutter-y);
+}
+.col {
+    flex: 1 0 0%;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.alert {
+    position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+.alert-warning {
+    color: #664d03 !important;
+    background-color: #fff3cd;
+    border-color: #ffecb5;
+    font-size: 25px;
+    padding-left: 50px;
+    margin-bottom: 50px;
+}
+
+.deposite-content {
+    position: relative;
+}
+.diposite-box {
+    width: 100%;
+    margin: 0 auto;
+    background: #e5edf1;
+    position: relative;
+}
+.deposite-content table {
+    border-collapse: collapse;
+    width: 100%;
+}
+table {
+    background-color: transparent;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+table {
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+tr {
+    display: table-row !important;
+    vertical-align: inherit !important;
+    border-color: inherit !important;
+    color: #4a5f80 !important;
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-size: 16px !important;
+    text-align: left !important;
+    overflow-x: hidden !important;
+    line-height: 26px !important;
+}
+th {
+    display: table-cell !important;
+    vertical-align: inherit !important;
+    font-weight: bold !important;
+    text-align: -internal-center !important;
+}
+td {
+    display: table-cell !important;
+    vertical-align: inherit !important;
+}
+.deposite-content th {
+    text-align: center;
+    padding: 8px 10px 8px 30px;
+    height: 80px;
+    text-transform: uppercase;
+}
+.deposite-content tr:nth-child(even) {
+    background-color: #f4f6f7;
+}
+.deposite-content td {
+    text-align: center;
+    padding: 8px 10px 8px 30px;
+    height: 80px;
+}
+.image-wrap{
+    height: 450px;
+}
+.image-wrap div{
+    height: 100%;
+}
+.image-wrap div img{
+    height: 100%;
+}
