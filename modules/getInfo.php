@@ -19,21 +19,44 @@ if (isset($_POST['get_id'])) {
 if (isset($_POST['get_usr_buy'])) {
 	$t_id = $_POST['t_id'];
 
-	$sql = "SELECT * FROM {$prefix}rg_ticket_buy WHERE ticket_id = '{$t_id}'";
+	$sql = "SELECT * FROM {$prefix}rg_game_info WHERE ticket_id = '{$t_id}'";
 	$res = $conn->query($sql);
 
-	$users_arr = array();
 	foreach ($res as $key => $row) {
-		$user_id = $row['user_id'];
+		$game_name = $row['game_name'];
+	}
 
-		$sql_1 = "SELECT * FROM {$prefix}users WHERE ID = {$user_id}";
-		$res_1 = $conn->query($sql_1);
+	$pos = strpos($game_name, "demo");
+	if ($pos !== false) {
+	  $users_arr = array(
+	  	"1" => "Marion Massey",
+        "2" => "Wilma Meyer",
+        "3" => "Lynette Vega",
+        "4" => "Elsie Gordon",
+        "5" => "Ashley Munoz",
+        "6" => "Betsy Rice",
+        "7" => "Dustin Day",
+        "8" => "Clifford Allen",
+        "9" => "Gustavo Willis",
+        "10" => "Ray Blake"
+	  );
+	}else{
+		$sql = "SELECT * FROM {$prefix}rg_ticket_buy WHERE ticket_id = '{$t_id}'";
+		$res = $conn->query($sql);
 
-		$users = $res_1->fetch_row();
+		$users_arr = array();
+		foreach ($res as $key => $row) {
+			$user_id = $row['user_id'];
 
-		$user_name = $users[9];
-		// array_push($users_arr, $user_name => $user_id);
-		$users_arr[$user_id] = $user_name;
+			$sql_1 = "SELECT * FROM {$prefix}users WHERE ID = {$user_id}";
+			$res_1 = $conn->query($sql_1);
+
+			$users = $res_1->fetch_row();
+
+			$user_name = $users[9];
+			// array_push($users_arr, $user_name => $user_id);
+			$users_arr[$user_id] = $user_name;
+		}
 	}
 
 	echo json_encode($users_arr);

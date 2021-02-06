@@ -120,7 +120,143 @@ text{
 .p-2{
     padding-left: 20px;
 }
-
+/*
 .label-txt{
     text-shadow: 1px 1px #fff;
+}*/
+
+.glowing{
+  stroke: #ef0000;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  animation: glower 1.5s linear infinite;
+}
+
+@keyframes glower {
+  0% {
+    stroke: #229800;
+  }
+  10% {
+    stroke: #3ba200;
+  }
+  20% {
+    stroke: #5db000;
+  }
+  30% {
+    stroke: #7dbd00;
+  }
+  40% {
+    stroke: #b5d400;
+  }  
+  50% {
+    stroke: #c4da00;
+  }
+  60% {
+    stroke: #fff100;
+  }
+  70% {
+    stroke: #ffe200;
+  }
+  80% {
+    stroke: #ffcb00;
+  }
+  90% {
+    stroke: #ff9200;
+  }  
+  100% {
+    stroke: #ff4100;
+  }
+}
+
+
+
+#buy_ticket {
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+#buy_ticket:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+#buy_ticket:active {
+    color: #000
+}
+
+#buy_ticket:active:after {
+    background: transparent;
+}
+
+#buy_ticket:hover:before {
+    opacity: 1;
+}
+
+#buy_ticket:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+
+@media only screen and (max-width: 600px) {
+  #chart{
+    position:absolute;
+    width:100%;
+    height:auto;
+    top:0;
+    left:-10%;
+  }
+
+  #question{
+    width:400px;
+    height:auto;
+    top:65%;
+    left: -5%;
+  }
+
+  #question h1{
+    width: 100%;
+    font-size: 25px;
+  }
+
+  #question h4{
+    width: 100%;
+    font-size: 20px;
+    margin-top: 15% !important;
+  }
+
+  .sale_tag{
+    width: 100%;
+  }
 }

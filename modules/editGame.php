@@ -106,12 +106,25 @@ elseif (isset($_GET['test']) && $_GET['test'] == 'jj') {
 }
 elseif (isset($_POST['del'])) {
 	$game_id = $_POST['game_id'];
+
+	$sql = "SELECT * FROM {$prefix}rg_game_info WHERE id = '{$game_id}'";
+	$res = $conn->query($sql);
+
+	foreach ($res as $key => $row) {
+		$ticket_id = $row['ticket_id'];
+	}
+
+	$sql_00 = "DELETE FROM {$prefix}postmeta WHERE post_id = {$ticket_id} ";
+	$conn->query($sql_00);
+	$sql_0 = "DELETE FROM {$prefix}posts WHERE ID = {$ticket_id} ";
+	$conn->query($sql_0);
+
 	$sql_1 = "DELETE FROM {$prefix}rg_game_info WHERE id = {$game_id} ";
 	if ($conn->query($sql_1) === TRUE) {
 	  echo "success";
 	} else {
 	  echo $conn->error;
-	}	
+	}
 }
 else{
 	echo "string";

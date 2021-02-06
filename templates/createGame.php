@@ -1,39 +1,39 @@
 <?php
   global $wpdb;
   $prefix = $wpdb->prefix;
-  if (isset($_POST['g_name'])) {
-    $g_name = $_POST['g_name'];
-    $p_limit = $_POST['p_limit'];
-    $due = $_POST['due'];
-    $i_name = $_POST['i_name'];
-    $tk_price = $_POST['tk_price'];
-    $wd_text = $_POST['wd_text'];
+  // if (isset($_POST['g_name'])) {
+  //   $g_name = $_POST['g_name'];
+  //   $p_limit = $_POST['p_limit'];
+  //   $due = $_POST['due'];
+  //   $i_name = $_POST['i_name'];
+  //   $tk_price = $_POST['tk_price'];
+  //   $wd_text = $_POST['wd_text'];
 
-    $post_id = wp_insert_post( array(
-        "post_title" => "Ticket-{$g_name}",
-        "post_name" => "Ticket-{$g_name}",
-        "post_type" => "product",
-        "post_status" => "Published",
-        "post_content" => "Ticket for raffle draw",
-        "post_excerpt" => "RG_ticket",
-    ));
+  //   $post_id = wp_insert_post( array(
+  //       "post_title" => "Ticket-{$g_name}",
+  //       "post_name" => "Ticket-{$g_name}",
+  //       "post_type" => "product",
+  //       "post_status" => "Published",
+  //       "post_content" => "Ticket for raffle draw",
+  //       "post_excerpt" => "RG_ticket",
+  //   ));
 
-    wp_set_object_terms( $post_id, 'simple', 'product_type' );
-    update_post_meta( $post_id, '_stock_status', 'instock');
-    update_post_meta( $post_id, 'total_sales', '0' );
-    update_post_meta( $post_id, '_downloadable', 'no' );
-    update_post_meta( $post_id, '_virtual', 'yes' );
-    update_post_meta( $post_id, '_regular_price', '' );
-    update_post_meta( $post_id, '_sale_price', '' );
-    update_post_meta( $post_id, '_purchase_note', '' );
-    update_post_meta( $post_id, '_featured', 'no' );
-    update_post_meta( $post_id, '_price', $tk_price );
-    update_post_meta( $post_id, '_stock', $p_limit );
-    update_post_meta( $post_id, '_sold_individually', '' );
-    update_post_meta( $post_id, '_manage_stock', 'yes' );
-    wc_update_product_stock($post_id, $single['qty'], 'set');
-    update_post_meta( $post_id, '_backorders', 'no' );
-  }
+  //   wp_set_object_terms( $post_id, 'simple', 'product_type' );
+  //   update_post_meta( $post_id, '_stock_status', 'instock');
+  //   update_post_meta( $post_id, 'total_sales', '0' );
+  //   update_post_meta( $post_id, '_downloadable', 'no' );
+  //   update_post_meta( $post_id, '_virtual', 'yes' );
+  //   update_post_meta( $post_id, '_regular_price', '' );
+  //   update_post_meta( $post_id, '_sale_price', '' );
+  //   update_post_meta( $post_id, '_purchase_note', '' );
+  //   update_post_meta( $post_id, '_featured', 'no' );
+  //   update_post_meta( $post_id, '_price', $tk_price );
+  //   update_post_meta( $post_id, '_stock', $p_limit );
+  //   update_post_meta( $post_id, '_sold_individually', '' );
+  //   update_post_meta( $post_id, '_manage_stock', 'yes' );
+  //   wc_update_product_stock($post_id, $single['qty'], 'set');
+  //   update_post_meta( $post_id, '_backorders', 'no' );
+  // }
 ?>
 <!-- content -->
 <div class="content">

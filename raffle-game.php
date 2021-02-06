@@ -132,7 +132,7 @@ class raffleGame{
 
 	function rg_enqueue(){
 		wp_enqueue_style('rgpluginstyle', plugins_url( '/assets/css/rgStyle.css', __FILE__ ));
-		wp_enqueue_script('rgpluginscript_jq', plugins_url( '/assets/js/jquery.min.js', __FILE__ ));
+		// wp_enqueue_script('rgpluginscript_jq', plugins_url( '/assets/js/jquery.min.js', __FILE__ ));
 		wp_enqueue_script('rgpluginscript', plugins_url( '/assets/js/rgScript.js', __FILE__ ));
 	}
 

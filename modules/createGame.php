@@ -20,6 +20,20 @@ if (isset($_POST['g_name'])) {
 	$tk_price = $_POST['tk_price'];
 	$wd_text = $_POST['wd_text'];
 
+	$sql_prod = "INSERT INTO `{$prefix}posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES (NULL, '1', '0000-00-00 00:00:00.000000', '0000-00-00 00:00:00.000000', 'Ticket for raffle draw', 'Ticket-{$g_name}', 'RG_ticket', 'publish', 'open', 'open', '', 'Ticket-{$g_name}', '', '', '0000-00-00 00:00:00.000000', '0000-00-00 00:00:00.000000', '', '0', '', '0', 'product', '', '0')";
+	$conn->query($sql_prod);
+	$last_id = $conn->insert_id;
+
+	$sql_prod_meta = "INSERT INTO `{$prefix}postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES 
+					(NULL, {$last_id}, '_stock_status', 'instock'), 
+					(NULL, {$last_id}, 'total_sales', '0'), 
+					(NULL, {$last_id}, '_downloadable', 'no'), 
+					(NULL, {$last_id}, '_featured', 'no'),
+					(NULL, {$last_id}, '_price', '{$tk_price}'),
+					(NULL, {$last_id}, '_stock', '{$p_limit}')";
+	$conn->query($sql_prod_meta);
+
+
 	$ext = pathinfo($filename, PATHINFO_EXTENSION);
 	$new_filename = generateRandomString().'.'.$ext;
 
@@ -44,12 +58,12 @@ if (isset($_POST['g_name'])) {
 				  echo $conn->error;
 				}
 		  	}else{
-		  		echo "error";
+		  		echo "error permission";
 		  	}
 		}else{
-	  		echo "error";
+	  		echo "error ticket id";
 	  	}
 	}else{
-  		echo "error";
+  		echo "error no product";
   	}
 }

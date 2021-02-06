@@ -83,3 +83,11 @@ text-shadow: 1px 1px 0px #ccc;
   text-transform: uppercase;
   display: inline-block;
 }
+
+
+@media only screen and (max-width: 600px) {
+  #countdown{
+    margin: -15% 0 0% -20%;
+    width: auto;
+  }
+}

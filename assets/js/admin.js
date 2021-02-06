@@ -30,7 +30,7 @@ $("#submit").click(function(event) {
 	/* Act on the event */
 	plugin_uri = $(this).attr('plugin-uri');
 	uri = plugin_uri+'modules/createGame.php';
-	console.log(uri);
+	// console.log(uri);
 	var fd = new FormData();
 
 	g_name = $("#g_name").val();
@@ -60,21 +60,14 @@ $("#submit").click(function(event) {
 		// console.log(i_img[0]);
 
 		$.ajax({
-			type: 'post',
-	      	data: fd,
-	      	contentType: false,
-          	processData: false,
-	      	success: function(data){
-	      		console.log("product success")
-	      	},
-		});
-		//await sleep(3000);
-		$.ajax({
           url: uri,
           type: 'post',
           data: fd,
           contentType: false,
           processData: false,
+          beforeSend: function(){
+          	$('.text-danger').text('...Loading');
+          },
           success: function(data){
             console.log(data)
             if (data == 'success') {

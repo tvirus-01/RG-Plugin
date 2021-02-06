@@ -29,29 +29,20 @@ $wpdb->query("CREATE TABLE IF NOT EXISTS `{$prefix}rg_game_winner` (
   `game_id` INT(100) NOT NULL , 
   PRIMARY KEY (`id`)) ENGINE = InnoDB");
 
-// $post_id = wp_insert_post( array(
-//     "post_title" => "Ticket",
-//     "post_name" => "Ticket",
-//     "post_type" => "product",
-//     "post_status" => "Private",
-//     "post_content" => "Ticket for raffle draw",
-//     "post_title" => "Ticket",
-// ));
 
-// // set product is simple/variable/grouped
-// wp_set_object_terms( $post_id, 'simple', 'product_type' );
-// update_post_meta( $post_id, '_stock_status', 'instock');
-// update_post_meta( $post_id, 'total_sales', '0' );
-// update_post_meta( $post_id, '_downloadable', 'no' );
-// update_post_meta( $post_id, '_virtual', 'yes' );
-// update_post_meta( $post_id, '_regular_price', '' );
-// update_post_meta( $post_id, '_sale_price', '' );
-// update_post_meta( $post_id, '_purchase_note', '' );
-// update_post_meta( $post_id, '_featured', 'no' );
-// update_post_meta( $post_id, '_price', '10' );
-// update_post_meta( $post_id, '_stock', '10' );
-// update_post_meta( $post_id, '_sold_individually', '' );
-// update_post_meta( $post_id, '_manage_stock', 'yes' );
-// wc_update_product_stock($post_id, $single['qty'], 'set');
-// update_post_meta( $post_id, '_backorders', 'no' );
-// update_post_meta( $post_id, '_stock', $single['qty'] );
+$rg_pages = array('raffle', 'rg thank you', 'rg-after');
+$rg_templates = array('wp-templates/raffle-tpl.php', 'wp-templates/rg-thanks-tpl.php', 'wp-templates/ap-tpl.php');
+
+$rgN = 0;
+foreach ($rg_pages as $key) {
+  $post_id = wp_insert_post( array(
+    "post_title" => $key,
+    "post_name" => $key,
+    "post_type" => "page",
+    "post_status" => "publish",
+    "post_content" => "Raffle Game Custom Page"
+  ));
+
+  add_post_meta( $post_id, '_wp_page_template', $rg_templates[$rgN] );
+  $rgN++;
+}

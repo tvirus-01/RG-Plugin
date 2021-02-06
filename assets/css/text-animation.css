@@ -63,3 +63,49 @@
     url(https://fonts.gstatic.com/s/ubuntucondensed/v8/u-4k0rCzjgs5J7oXnJcM_0kACGMtT-Dfqw.woff2)
       format("woff2");
 }
+
+
+/*.glowing{
+  stroke: #ef0000;
+  stroke-width: 10px;
+  stroke-linejoin: round;
+}
+
+@keyframes glower {
+  0% {
+    background-position: 0 0;
+  }
+  
+  50% {
+    background-position: 400% 0;
+  }
+  
+  100% {
+    background-position: 0 0;
+  }
+}*/
+
+@media only screen and (max-width: 600px) {
+  #chart{
+    top:10px !important;
+    left:0  !important;
+  }
+
+  #question{
+    top:50% !important;
+    left: 5% !important;
+  }
+
+  #countdown{
+    margin: 0 !important;
+  }
+
+  .col{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .deposite-table{
+    overflow-x: auto !important;
+  }
+}

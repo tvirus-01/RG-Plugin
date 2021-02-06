@@ -77,5 +77,12 @@ if ($game) {
     $already_purchased = 0;
   }
 
+  $pos = strpos($game_name, "demo");
+  if ($pos !== false) {
+    $demo = 1;
+  }else{
+    $demo = 0;
+  }
+
 	include plugin_dir_path( __FILE__ ).'/raffle-ui.php';
 }

@@ -1,3 +1,4 @@
+var demo = $("#demo").val();
 var img_url = $("#img_url").val();
 var itm_name = $("#itm_name").val();
 var tk_price = $("#tk_price").val();
@@ -6,10 +7,27 @@ var ticket_id = $("#ticket_id").val();
 var percipient_limit = $("#percipient_limit").val();
 
 var plugin_path = $("#chart").attr('plugin_path')+'../../';
-var get_info_pat = plugin_path+'modules/getInfo.php'
+var get_info_pat = plugin_path+'modules/getInfo.php';
+var screen_width = $( window ).width();
 
 // console.log(img_url);
-var padding = {
+if (screen_width <= 600) {
+    var padding = {
+        top: 20,
+        right: 40,
+        bottom: 0,
+        left: 0
+    },
+    w = screen_width - padding.left - padding.right,
+    h = screen_width - padding.top - padding.bottom,
+    r = Math.min(w, h) / 2,
+    rotation = 0,
+    oldrotation = 0,
+    picked = 100000,
+    oldpick = [],
+    color = d3.scale.category20();
+}else{
+    var padding = {
         top: 20,
         right: 40,
         bottom: 0,
@@ -22,9 +40,10 @@ var padding = {
     oldrotation = 0,
     picked = 100000,
     oldpick = [],
-    color = d3.scale.category20(); //category20c()
-//randomNumbers = getRandomNumbers();
-//http://osric.com/bingo-card-generator/?title=HTML+and+CSS+BINGO!&words=padding%2Cfont-family%2Ccolor%2Cfont-weight%2Cfont-size%2Cbackground-color%2Cnesting%2Cbottom%2Csans-serif%2Cperiod%2Cpound+sign%2C%EF%B9%A4body%EF%B9%A5%2C%EF%B9%A4ul%EF%B9%A5%2C%EF%B9%A4h1%EF%B9%A5%2Cmargin%2C%3C++%3E%2C{+}%2C%EF%B9%A4p%EF%B9%A5%2C%EF%B9%A4!DOCTYPE+html%EF%B9%A5%2C%EF%B9%A4head%EF%B9%A5%2Ccolon%2C%EF%B9%A4style%EF%B9%A5%2C.html%2CHTML%2CCSS%2CJavaScript%2Cborder&freespace=true&freespaceValue=Web+Design+Master&freespaceRandom=false&width=5&height=5&number=35#results
+    color = d3.scale.category20();
+}           
+
+
 var data = [];
 
 var rg_user_data = function(){
@@ -53,6 +72,7 @@ for (var i in rg_user_data) {
     });
     len_obj += 1;
 }
+console.log(data)
 
 if (len_obj == 0) {
      data.push({
@@ -95,6 +115,9 @@ arcs.append("path")
     .attr("fill", function(d, i) {
         return color(i);
     })
+    .attr("class", function(d, i) {
+        return data[i].value;
+    })
     .attr("d", function(d) {
         return arc(d);
     });
@@ -107,6 +130,9 @@ arcs.append("text").attr("transform", function(d) {
     })
     .attr("text-anchor", "end")
     .attr("class", "label-txt")
+    .attr("id", function(d, i) {
+        return data[i].value;
+    })
     .text(function(d, i) {
         return data[i].label;
     });
@@ -122,30 +148,35 @@ setTimeout(function() {
     $("#question h4").hide();
     $("#purch_ticket").hide();
     $("#question h1").text('Ticket prchase time is over');
-    $("#purch_ticket_td").text("!Times UP")
+    $("#purch_ticket_td").text("!Times UP");
     spin();
+    $("#arrow").show();
     var countdown = document.getElementById("tiles");
     countdown.innerHTML = "<small>Times Up</small>"; 
 },time_limit );
 
 function spin(d) {
+    console.log("spin start");
 
-    var rg_chk_winner = function(){
-        var ret_data_w = 'nothing';
-        
-        $.ajax({
-          'async': false,
-          'global': false,  
-          url: get_info_pat,
-          type: 'post',
-          data: {get_winner:"kk", t_id:ticket_id},
-          success: function(data){
-            // console.log(data);
-            ret_data_w = data;  
-          },
-        });
-        return ret_data_w;
-    }(); 
+    if (demo == '1') {
+        rg_chk_winner = 5;
+    }else{    
+        var rg_chk_winner = function(){
+            var ret_data_w = 'nothing';
+            
+            $.ajax({
+              'async': false,
+              'global': false,  
+              url: get_info_pat,
+              type: 'post',
+              data: {get_winner:"kk", t_id:ticket_id},
+              success: function(data){
+                ret_data_w = data;  
+              },
+            });
+            return ret_data_w;
+        }(); 
+    }
 
     container.on("click", null);
     //all slices have been seen, all done
@@ -160,7 +191,7 @@ function spin(d) {
         ma_rand = Math.random(),
         rng = Math.floor((ma_rand * 1440) + 360);
 
-    console.log(data, rg_chk_winner);
+    // console.log(data, rg_chk_winner);
 
     rotation_num = 4;
     rotation_deg = rotation_num * 360;
@@ -191,7 +222,7 @@ function spin(d) {
                 data_ind = i;
             }
         }
-        
+
         picked = data_ind;
         if (picked == 0) {
             slice_num = data.length - 1;
@@ -207,10 +238,14 @@ function spin(d) {
             slice_end -= 2;
         }
 
-        random_deg = Math.floor(ma_rand * (slice_end - slice_start) + slice_start);
-        rotation = -random_deg + rotation_deg;
+        transform_winner = $("#"+rg_chk_winner).attr('transform');
+        tw_sp1 = transform_winner.split(")")[0];
+        winner_rotate = tw_sp1.split("(")[1];
 
-        console.log(random_deg, slice_start, slice_end, rotation);
+        // random_deg = Math.floor(ma_rand * (slice_end - slice_start) + slice_start);
+        rotation = -winner_rotate + rotation_deg;
+
+        // console.log(random_deg, slice_start, slice_end, rotation, picked, slice_num);
     }
     
     if (oldpick.indexOf(picked) !== -1) {
@@ -238,37 +273,62 @@ function spin(d) {
             /* Comment the below line for restrict spin to sngle time */
             // container.on("click", spin);
         });
+
+    $("."+rg_chk_winner).addClass('glowing');
 }
 //make arrow
 svg.append("g")
     .attr("transform", "translate(" + (w + padding.left + padding.right) + "," + ((h / 2) + padding.top) + ")")
     .append("path")
     .attr("d", "M-" + (r * .15) + ",0L0," + (r * .05) + "L0,-" + (r * .05) + "Z")
+    .attr("id", "arrow")
     .style({
-        "fill": "black"
+        "fill": "black",
+        "display": "none"
     });
 //draw spin circle
+if (screen_width <= 600) {
+    cr_r = screen_width * 0.25;
+}else{
+    cr_r = 150;
+}
 container.append("circle")
     .attr("cx", 0)
     .attr("cy", 0)
-    .attr("r", 150)
+    .attr("r", cr_r)
     .style({
         "fill": "white"
-    });
+});
 //spin text
+if (screen_width <= 600) {
+    img_wh = screen_width * 0.33;
+    img_cord = cr_r * 0.7;
+}else{
+    img_wh = 200;
+    img_cord = 100;
+}
 container.append('image')
-    .attr("x", -100)
-    .attr("y", -100)
+    .attr("x", -img_cord)
+    .attr("y", -img_cord)
     .attr('xlink:href', img_url)
-    .attr('width', 200)
-    .attr('height', 200)
+    .attr('width', img_wh)
+    .attr('height', img_wh)
 
-container.append("text")
-    .attr("x", 0)
-    .attr("y", 120)
-    .attr("text-anchor", "middle")
-    .text(itm_name)
-    .style({"font-weight":"bold", "font-size":"14px", "color":"royalblue"});
+if (screen_width > 600) {
+    container.append("text")
+        .attr("x", 0)
+        .attr("y", 120)
+        .attr("text-anchor", "middle")
+        .text(itm_name)
+        .style({"font-weight":"bold", "font-size":"14px", "color":"royalblue"});
+}else{
+    container.append("text")
+        .attr("x", 0)
+        .attr("y", img_cord)
+        .attr("text-anchor", "middle")
+        .text(itm_name)
+        .style({"font-weight":"bold", "font-size":"10px", "color":"royalblue"});
+}
 
 
 function rotTween(to) {
@@ -301,11 +361,19 @@ $("#buy_ticket").click(function() {
     window.location.href = link;
 });
 
-$(".slice").mouseover(function(){
-    var uname = $(this).text();
-    $("#tooltip").html("<p><strong>"+uname+"</strong></p>");
-    $("#tooltip").show();
-});
-$(".slice").mouseout(function(){
-    $("#tooltip").hide();
-});
+// var slice = document.querySelectorAll('.slice');
+// for (var i=0; i<element.length; i+=1){
+//     element[i].addEventListener('click', function(e) {
+//         console.log(e);   
+//     });
+// }
+
+// $(".slice").mouseover(function(e){
+//     // var uname = $(this).text();
+//     // $("#tooltip").html("<p><strong>"+uname+"</strong></p>");
+//     // $("#tooltip").show();
+//     console.log($(this));
+// });
+// $(".slice").mouseout(function(){
+//     $("#tooltip").hide();
+// });

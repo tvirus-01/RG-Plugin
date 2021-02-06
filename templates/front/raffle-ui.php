@@ -15,12 +15,10 @@
 <div class="row justify-content-center p-5" style="height: 500px;">
 	<div class="col">
 		<div id="chart" class="p-2" plugin_path="<?php echo plugin_dir_url( __FILE__ ) ?>"></div>
-		<div id="tooltip" class="hidden">
-		    
-		</div>
+		<div id="tooltip" class="hidden"></div>
 		<div id="question">
 			<h1>Join our prizepoll only limited ticket left</h1>
-			<h4><span class="sale_tag">Only <?php echo $crr_sym.$tk_price; ?> per ticket</span> <button class="btn btn-primary btn-lg" logged_in="<?php echo $logged_in; ?>"  link="<?php echo $href; ?>" id="buy_ticket">Buy Now</button></h4>
+			<h4 style="margin-top: 5%;"><span class="sale_tag">Only <?php echo $crr_sym.$tk_price; ?> per ticket</span> <button class="btn btn-primary btn-lg" logged_in="<?php echo $logged_in; ?>"  link="<?php echo $href; ?>" id="buy_ticket">Buy Now</button></h4>
 		</div>
 		<!-- <span class="np_yet"></span> -->
 	</div>
@@ -34,6 +32,7 @@
 	<input type="hidden" id="duration" value="<?php echo $duration; ?>">
 	<input type="hidden" id="declartion_text" value="<?php echo $declartion_text; ?>">
     <input type="hidden" id="set-time" value="<?php echo $tx; ?>"/>
+    <input type="hidden" id="demo" value="<?php echo $demo; ?>"/>
 	<?php
 		if ( is_front_page() ){ 
 			echo '<input type="hidden" id="is_home" value="1"/>';
@@ -55,7 +54,7 @@
 
 
 <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="<?php echo plugins_url( '../../assets/js/jquery.min.js', __FILE__ ); ?>" charset="utf-8"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js" integrity="sha512-IQLehpLoVS4fNzl7IfH8Iowfm5+RiMGtHykgZJl9AWMgqx0AmJ6cRWcB+GaGVtIsnC4voMfm8f2vwtY+6oPjpQ==" crossorigin="anonymous"></script>
 <script src="<?php echo plugins_url( '../../assets/js/countdown.js', __FILE__ ); ?>" charset="utf-8"></script>
 <script src="<?php echo plugins_url( '../../assets/js/main.js', __FILE__ ); ?>" charset="utf-8"></script>
